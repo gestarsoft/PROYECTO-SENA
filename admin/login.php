@@ -5,45 +5,40 @@ include("./bd.php");
 
 if($_POST){
 
+    $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : "";
+    $password = isset($_POST['password']) ? $_POST['password'] : "";
+    $rolSeleccionado = isset($_POST['rol']) ? $_POST['rol'] : "";
 
+    //seleccionar registros.
+    $sentencia = $conexion->prepare("SELECT *, count(*) as n_usuario 
+                                    FROM `tbl_usuarios`
+                                    WHERE usuario = :usuario
+                                    AND password = :password");
 
-$usuario=(isset($_POST['usuario']))?$_POST['usuario']: "";
-$password=(isset($_POST['password']))?$_POST['password']: "";
-$rolSeleccionado = (isset($_POST['rol'])) ? $_POST['rol'] : "";
+    $sentencia->bindParam(":usuario", $usuario);    
+    $sentencia->bindParam(":password", $password);
 
-//seleccionar registros.
-$sentencia=$conexion->prepare("SELECT *, count(*)  as n_usuario 
-FROM `tbl_usuarios`
-        WHERE usuario=:usuario
-        AND password=:password
-         ");
+    $sentencia->execute();
+    $lista_usuarios = $sentencia->fetch(PDO::FETCH_ASSOC);
 
-$sentencia->bindParam(":usuario",$usuario);    
-$sentencia->bindParam(":password",$password);
-
-$sentencia-> execute();
-$lista_usuarios=$sentencia->fetch(PDO::FETCH_ASSOC);
-
-if($lista_usuarios['n_usuario']>0){  
-
-     // Usuario y contraseña correctos.
-    // Obtener el rol del usuario.
-
-    $rolUsuario = $lista_usuarios['rol'];
-     // Comprobar si el rol seleccionado coincide con el rol del usuario.
-    if ($rolSeleccionado === $rolUsuario) { 
-    $_SESSION['usuario']=$lista_usuarios['usuario'];
-    $_SESSION['logueado']=true;
-    $_SESSION['rol'] = $rolUsuario; // Almacena el rol en la sesión
-    header("Location:index.php");
+    if($lista_usuarios['n_usuario'] > 0){  
+        // Usuario y contraseña correctos.
+        // Obtener el rol del usuario.
+        $rolUsuario = $lista_usuarios['rol'];
+        // Comprobar si el rol seleccionado coincide con el rol del usuario.
+        if ($rolSeleccionado === $rolUsuario) { 
+            $_SESSION['usuario'] = $lista_usuarios['usuario'];
+            $_SESSION['logueado'] = true;
+            $_SESSION['rol'] = $rolUsuario; // Almacena el rol en la sesión
+            header("Location:index.php");
+        } else {
+            $mensaje = "Error: El rol seleccionado no corresponde al rol del usuario.";
+        }
+    } else {
+        $mensaje = "Error: El usuario o contraseña son incorrectos.";
     }
-
-} else{
-     $mensaje="Error: El usuario o contraseña son correctos, pero el rol seleccionado no corresponde al rol del usuario.";
-
-    }
-
 }
+?>
 
 ?>
 <!doctype html>
