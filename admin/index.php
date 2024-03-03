@@ -5,7 +5,6 @@ include("./templates/header.php");
 if(isset($_SESSION['rol']) && $_SESSION['rol'] == 'Administrador') { 
 ?>
 
-
 <br>
 <div class="p-5 mb-4 bg-light rounded-3">
     <span class="nav-item nav-link"> 👤 <?php echo $_SESSION['usuario'] . ' [' . $_SESSION['rol'] . ']'; ?></span> 
@@ -129,4 +128,17 @@ if(isset($_SESSION['rol']) && $_SESSION['rol'] == 'Administrador') {
 }
 
 include("./templates/footer.php"); 
+
+// Script para mostrar el alert de bienvenida
+if(isset($_GET['usuario'])) {
+?>
+    <script>
+        // Obtener el nombre de usuario de la URL
+        var usuario = "<?php echo $_GET['usuario']; ?>";
+
+        // Mostrar el alert de bienvenida
+        alert("¡Bienvenido, " + usuario + "!");
+    </script>
+<?php
+}
 ?>

@@ -30,7 +30,8 @@ if($_POST){
             $_SESSION['usuario'] = $lista_usuarios['usuario'];
             $_SESSION['logueado'] = true;
             $_SESSION['rol'] = $rolUsuario; // Almacena el rol en la sesión
-            header("Location:index.php");
+            header("Location: index.php?usuario=" . urlencode($_SESSION['usuario']));
+            exit();
         } else {
             $mensaje = "Error: El rol seleccionado no corresponde al rol del usuario.";
         }
