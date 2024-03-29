@@ -1,48 +1,52 @@
 <?php  
 include("../../bd.php");
 
-if(($_POST)){
+if(isset($_POST['nombrecompleto'], $_POST['puesto'], $_POST['twitter'], $_POST['facebook'], $_POST['linkedin'])) {
+    // Verifica que los campos no estén vacíos
+    if(empty($_POST['nombrecompleto']) || empty($_POST['puesto']) || empty($_POST['twitter']) || empty($_POST['facebook']) || empty($_POST['linkedin'])) {
+        $error_message = "Todos los campos son obligatorios.";
+       
+        echo "<script>alert('$error_message');</script>";
+    } else {
+        $imagen = isset($_FILES["imagen"]["name"]) ? $_FILES["imagen"]["name"] : "";
+        $nombrecompleto = $_POST['nombrecompleto'];
+        $puesto = $_POST['puesto'];
+        $twitter = $_POST['twitter'];
+        $facebook = $_POST['facebook'];
+        $linkedin = $_POST['linkedin'];
 
-        $imagen=(isset($_FILES["imagen"]["name"]))?$_FILES["imagen"]["name"]:"";
-        $nombrecompleto=(isset($_POST['nombrecompleto']))?$_POST['nombrecompleto']: "";
-        $puesto=(isset($_POST['puesto']))?$_POST['puesto']: "";   
-        $twitter=(isset($_POST['twitter']))?$_POST['twitter']: ""; 
-        $facebook=(isset($_POST['facebook']))?$_POST['facebook']: ""; 
-        $linkedin=(isset($_POST['linkedin']))?$_POST['linkedin']: "";
-
-
-
-        $fecha_imagen=new DateTime();
-        $nombre_archivo_imagen=($imagen!="")? $fecha_imagen->getTimestamp()."_".$imagen:"";
-        $tmp_imagen=$_FILES["imagen"]["tmp_name"];
-
-        if($tmp_imagen!=""){
-        move_uploaded_file($tmp_imagen,"../../../assets/img/team/".$nombre_archivo_imagen);
+        // Moviliza la imagen a una nueva carpeta
+        $fecha_imagen = new DateTime();
+        $nombre_archivo_imagen = ($imagen != "") ? $fecha_imagen->getTimestamp() . "_" . $imagen : "";
+        $tmp_imagen = $_FILES["imagen"]["tmp_name"];
+        
+        if($tmp_imagen != "") {
+            move_uploaded_file($tmp_imagen, "../../../assets/img/team/" . $nombre_archivo_imagen);
         }
 
-        $sentencia=$conexion->prepare("INSERT INTO `tbl_equipo` 
+        // Prepara la consulta SQL para insertar el nuevo integrante del equipo
+        $sentencia = $conexion->prepare("INSERT INTO `tbl_equipo` 
         (`ID`, `imagen`,`nombrecompleto`,`puesto`,`twitter`,`facebook`,`linkedin`)
-        VALUES(NULL,:imagen,:nombrecompleto,:puesto,:twitter,:facebook,:linkedin);");
+        VALUES(NULL, :imagen, :nombrecompleto, :puesto, :twitter, :facebook, :linkedin);");
 
-        $sentencia->bindParam(":imagen",$nombre_archivo_imagen);
-        $sentencia->bindParam(":nombrecompleto",$nombrecompleto);    
-        $sentencia->bindParam(":puesto",$puesto); 
-        $sentencia->bindParam(":twitter",$twitter);     
-        $sentencia->bindParam(":facebook",$facebook);     
-        $sentencia->bindParam(":linkedin",$linkedin);       
-        
+        // Asocia los parámetros
+        $sentencia->bindParam(":imagen", $nombre_archivo_imagen);
+        $sentencia->bindParam(":nombrecompleto", $nombrecompleto);    
+        $sentencia->bindParam(":puesto", $puesto); 
+        $sentencia->bindParam(":twitter", $twitter);     
+        $sentencia->bindParam(":facebook", $facebook);     
+        $sentencia->bindParam(":linkedin", $linkedin);       
+
+        // Ejecuta la consulta
         $sentencia->execute();
-   
-   $mensaje="Registro agregado con éxito.";
-   header("Location:index.php?mensaje=".$mensaje);
 
-
-
-
-
+        $mensaje = "Registro agregado con éxito.";
+        header("Location:index.php?mensaje=" . $mensaje);
+    }
 }
-include("../../templates/header.php");?>
 
+include("../../templates/header.php");
+?>
 
 <div class="card">
     <center> <div class="card-header">Agregar nuevo integrante al equipo</div></center>
@@ -94,10 +98,5 @@ include("../../templates/header.php");?>
 
     <div class="card-footer text-muted"></div>
 </div>
-
-
-
-
-
 
 <?php  include("../../templates/footer.php");?>

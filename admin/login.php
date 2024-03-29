@@ -41,104 +41,45 @@ if($_POST){
 }
 ?>
 
-?>
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>login</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+<head>
+    <title>login</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-        <!-- Bootstrap CSS v5.2.1 -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-        />
-    </head>
-
-    <body>
-        <header>
-            <!-- place navbar here -->
-        </header>
-        <main>
-            <div class="container">
-                <div class="row">
-                    <div
-                        class="col-4"
-                    >
-                       
-                    </div>
-                    <div class="col-4">
-                        <br><br>
-
-                        <?php if(isset($mensaje)){ ?>
-                        <div
-                            class="alert alert-warning alert-dismissible fade show"
-                            role="alert"
-                        >
-                            <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="alert"
-                                aria-label="Close"
-                            ></button>
-                            <strong><?php echo $mensaje;?></strong> 
-                        </div>
-
-                        <?php } ?>
-
-
-                       <div class="card">
-                        <div class="card-header">Login</div>
-                        <div class="card-body">
-
-                       
-                        
-                        <script>
-                            var alertList = document.querySelectorAll(".alert");
-                            alertList.forEach(function (alert) {
-                                new bootstrap.Alert(alert);
-                            });
-                        </script>
-                        
-
-                           <form action="" method="post">
-
-
-                           <div class="mb-3">
-                            <label for="" class="form-label">Usuario</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="usuario"
-                                id="usuario"
-                                aria-describedby="helpId"
-                                placeholder="Ingresa tu usuario"                            />                            
-                           </div>
-                           <div class="mb-3">
-                            <label for="" class="form-label"> Tu Password</label>
-                            <input
-                                type="password"
-                                class="form-control"
-                                name="password"
-                                id="password"
-                                aria-describedby="helpId"
-                                placeholder="Ingresa tu password"                            />                            
-                           </div>
-                           <div class="mb-3">
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <style>
+        /* Agregar estilos CSS personalizados para dispositivos móviles */
+        body {
+            padding-top: 20px; /* Espacio superior para evitar la barra de navegación en dispositivos móviles */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">Login</div>
+                    <div class="card-body">
+                        <form action="" method="post">
+                            <div class="mb-3">
+                                <label for="usuario" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Ingresa tu usuario" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Ingresa tu contraseña" />
+                            </div>
+                            <div class="mb-3">
                                 <label for="rol" class="form-label">Rol:</label>
                                 <select class="form-control" name="rol" id="rol">
-                                <option value="Administrador">Administrador</option>
-                                <option value="Vendedor">Vendedor</option>
-                                <option value="Cliente">Cliente</option>
-                              
-
+                                    <option value="Administrador">Administrador</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                    <option value="Cliente">Cliente</option>
                                 </select>
                             </div>
                             <?php if(isset($mensaje)){ ?>
@@ -146,44 +87,20 @@ if($_POST){
                                 <?php echo $mensaje; ?>
                             </div>
                             <?php } ?>
-                         <input
-                            name=""
-                            id=""
-                            class="btn btn-primary"
-                            type="submit"
-                            value="Entrar"/>                                            
-                          
-                           
-                        </div>
+                            <button type="submit" class="btn btn-primary w-100">Entrar</button>
                         </form>
-                        <div class="card-footer text-muted"></div>
-                       </div>
-                       
                     </div>
-                    
                 </div>
-                <!-- Enlace para ir a la página principal de la tienda -->
+            </div>
+        </div>
+        <!-- Enlace para ir a la página principal de la tienda -->
         <div class="text-center mt-3">
             <a href="http://localhost/website/" class="btn btn-primary">Ir a la página principal de la tienda tecnológica</a>
         </div>
-            </div>
-            
+    </div>
 
-        </main>
-        <footer>
-            <!-- place footer here -->
-        </footer>
-        <!-- Bootstrap JavaScript Libraries -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
-    </body>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
 </html>
