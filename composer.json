@@ -1,0 +1,10 @@
+{
+    "name": "tu-nombre-de-proyecto/website",
+    "description": "Proyecto WEBSITE para mostrar productos y servicios.",
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "require": {
+        "facebook/webdriver": "^1.1"
+    }
+}

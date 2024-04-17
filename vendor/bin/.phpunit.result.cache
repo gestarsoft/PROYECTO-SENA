@@ -1,0 +1,1 @@
+{"version":1,"defects":{"SeguridadInicioSesionTest::testInyeccionSQL":4,"PruebaEliminacionUsuarios::testEliminarUsuario":4,"crear_usuario::testCrearUsuario":4},"times":{"SeguridadInicioSesionTest::testInyeccionSQL":0.039,"PruebaEliminacionUsuarios::testEliminarUsuario":0.007,"crear_usuario::testCrearUsuario":0.009}}

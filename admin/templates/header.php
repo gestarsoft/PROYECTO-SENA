@@ -1,14 +1,16 @@
-<?php 
-
-session_start();
-$url_base="http://localhost/website/admin";
-if(!isset($_SESSION['usuario'])){
-    header("Location:".$url_base."login.php");
+<?php
+// Verificar si la sesión no está activa antes de iniciarla
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
-
-
+$url_base = "http://localhost/website/admin";
+if (!isset($_SESSION['usuario'])) {
+    header("Location: {$url_base}/login.php");
+    exit; // Asegura que el script se detenga después de redirigir
+}
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -53,7 +55,8 @@ if(!isset($_SESSION['usuario'])){
                 <a class="nav-item nav-link active" href="http://localhost/website/admin/index.php" aria-current="page"> Dashboard <span class="visually-hidden">(current)</span></a>
                     
                     <a class="nav-item nav-link" href="<?php echo $url_base;?>/secciones/servicios">Servicios</a>
-                    <a class="nav-item nav-link" href="<?php echo $url_base;?>/secciones/portafolio">Productos</a>
+                    <a class="nav-item nav-link" href="<?php echo $url_base;?>/secciones/productos">Productos</a>
+                    <a class="nav-item nav-link" href="<?php echo $url_base;?>/secciones/ventas">Mis Ventas</a>
                     <a class="nav-item nav-link" href="<?php echo $url_base;?>/secciones/entradas">Portafolio</a>
                     <a class="nav-item nav-link" href="<?php echo $url_base;?>/secciones/equipo">Equipo de trabajo</a>
                     <a class="nav-item nav-link" href="<?php echo $url_base;?>/secciones/configuraciones">Configuraciones</a>
@@ -65,7 +68,7 @@ if(!isset($_SESSION['usuario'])){
                 </div>
             </nav> 
             <br> <br>
-            <center><a href="http://localhost/website/" class="btn btn-primary">Ir a la página principal de la tienda tecnológica</a> </center>          
+            <center><a href="http://localhost/website/" class="btn btn-primary"> ↪ Ir a computienda.com</a> </center>          
         </header>
         <main class="container">
             <br/>

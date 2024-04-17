@@ -23,7 +23,8 @@ include("../../templates/header.php");
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <a class="btn btn-primary" href="crear.php" role="button">Agregar Registros</a>
+            <a class="btn btn-primary" href="crear.php" role="button">Agregar Servicios en la web</a>
+            <a class="btn btn-success" href="tickets.php" role="button">Gestion de Soporte técnico</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

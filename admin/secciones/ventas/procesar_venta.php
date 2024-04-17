@@ -1,45 +1,51 @@
-<?php  
+<?php
+session_start();
 include("../../bd.php");
 
-// Procesar el formulario de creación de ventas
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Aquí deberías agregar el código para procesar los datos del formulario y registrar la venta en la base de datos
-    // Recuerda validar y limpiar los datos antes de usarlos en consultas SQL
-    // Una vez registrada la venta, puedes redirigir al usuario a la página de inicio o mostrar un mensaje de éxito
-    // Ejemplo de procesamiento de datos:
-    $producto = $_POST['producto'];
-    $cantidad = $_POST['cantidad'];
-    $cliente = $_POST['cliente'];
-    // Continuar con el procesamiento y registro de la venta en la base de datos...
+    // Recoger los datos del formulario
+    $nombre = $_POST["nombre"];
+    $apellido = $_POST["apellido"];
+    $cedula = $_POST["cedula"];
+    $celular = $_POST["celular"];
+    $direccion = $_POST["direccion"];
+    $metodo_pago = $_POST["metodo_pago"];
+    $producto_id = $_POST["producto_id"];
+    $cantidad = $_POST["cantidad"];
+    $nombre_producto = $_POST["nombre_producto"]; // Nuevo campo
+
+    // Preparar la consulta SQL
+    $query = "INSERT INTO `tbl_ventas` 
+                (`cliente_nombre`, `cliente_apellido`, `cliente_cedula`, `cliente_celular`, `cliente_direccion`, `metodo_pago`, `producto_id`, `cantidad`, `nombre_producto`)
+              VALUES 
+                (:cliente_nombre, :cliente_apellido, :cliente_cedula, :cliente_celular, :cliente_direccion, :metodo_pago, :producto_id, :cantidad, :nombre_producto)";
+
+    // Preparar y ejecutar la consulta
+    $statement = $conexion->prepare($query);
+    $statement->bindParam(":cliente_nombre", $nombre);
+    $statement->bindParam(":cliente_apellido", $apellido);
+    $statement->bindParam(":cliente_cedula", $cedula);
+    $statement->bindParam(":cliente_celular", $celular);
+    $statement->bindParam(":cliente_direccion", $direccion);
+    $statement->bindParam(":metodo_pago", $metodo_pago);
+    $statement->bindParam(":producto_id", $producto_id);
+    $statement->bindParam(":cantidad", $cantidad);
+    $statement->bindParam(":nombre_producto", $nombre_producto); // Nuevo campo
+    $result = $statement->execute();
+
+    // Verificar si la consulta fue exitosa
+    if ($result) {
+        // Redireccionar con mensaje de éxito
+        header("Location: index.php?mensaje=" . urlencode("Venta guardada correctamente"));
+        exit();
+    } else {
+        // Redireccionar con mensaje de error
+        header("Location: index.php?mensaje=" . urlencode("Error al guardar la venta"));
+        exit();
+    }
+} else {
+    // Si el método de solicitud no es POST, redireccionar a la página de inicio
+    header("Location: index.php");
+    exit();
 }
-
-include("../../templates/header.php");
 ?>
-
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Agregar Venta</h5>
-        </div>
-        <div class="card-body">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                <div class="form-group">
-                    <label for="producto">Producto:</label>
-                    <input type="text" class="form-control" id="producto" name="producto" required>
-                </div>
-                <div class="form-group">
-                    <label for="cantidad">Cantidad:</label>
-                    <input type="number" class="form-control" id="cantidad" name="cantidad" required>
-                </div>
-                <div class="form-group">
-                    <label for="cliente">Cliente:</label>
-                    <input type="text" class="form-control" id="cliente" name="cliente" required>
-                </div>
-                <!-- Agregar más campos según sea necesario para la venta -->
-                <button type="submit" class="btn btn-primary">Registrar Venta</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<?php include("../../templates/footer.php");?>

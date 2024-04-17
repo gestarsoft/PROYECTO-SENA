@@ -19,10 +19,10 @@
         <script> 
           $(document).ready( function(){
                 $('table').dataTable({
-                    "pageLength":5,
+                    "pageLength":20,
                     lengthMenu:[
-                        [10,25,50],
-                        [10,25,50]
+                        [20,25,50],
+                        [20,25,50]
                     ],
                     "language": {
                         "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"

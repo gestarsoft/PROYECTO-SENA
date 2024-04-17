@@ -7,7 +7,7 @@ $sentencia-> execute();
 $lista_servicios=$sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 //seleccionar los registros de portafolio
-$sentencia=$conexion->prepare("SELECT * FROM `tbl_portafolio` ");
+$sentencia=$conexion->prepare("SELECT * FROM `tbl_productos` ");
 $sentencia-> execute();
 $lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC);
 
@@ -86,13 +86,14 @@ $lista_configuraciones=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                 </div>                
                 <div class="row text-center">
              <?php foreach($lista_servicios as $registros){ ?>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fas <?php echo $registros["icono"];?> fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3"><?php echo $registros["titulo"];?></h4>
                         <p class="text-muted"><?php echo $registros["descripcion"];?></p>
+                        
                     </div>
                 <?php } ?>
 
@@ -110,7 +111,7 @@ $lista_configuraciones=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row">
                 <?php foreach($lista_portfolio as $registros){?>
 
-                    <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="col-lg-3 col-sm-6 mb-5">
                         <!-- Portfolio item 1-->
                         <div class="portfolio-item">
                             <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1<?php echo $registros["ID"];?>">
@@ -121,7 +122,8 @@ $lista_configuraciones=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                             </a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading"><?php echo $registros["titulo"];?></div>
-                                <div class="portfolio-caption-subheading text-muted"><?php echo $registros["subtitulo"];?></div>
+                                <div class="portfolio-caption-subheading text-muted"><?php echo $registros["descripcion"];?></div>
+                                <h4 class="my-3"><?php echo $registros["precio"];?></h4>
                             </div>
                         </div>
                     </div>
@@ -135,7 +137,7 @@ $lista_configuraciones=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="modal-body">
                                     <!-- Project details-->
                                     <h2 class="text-uppercase"><?php echo $registros["titulo"];?></h2>
-                                    <p class="item-intro text-muted"><?php echo $registros["subtitulo"];?></p>
+                                    <!-- <p class="item-intro text-muted"><?php echo $registros["subtitulo"];?></p> -->
                                     <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/<?php echo $registros["imagen"];?>" alt="..." />
                                     <p><?php echo $registros["descripcion"];?></p>
                                     <ul class="list-inline">
@@ -148,8 +150,8 @@ $lista_configuraciones=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                                             <?php echo $registros["categoria"];?>
                                         </li>
                                         <li>
-                                            <strong>URL:</strong>
-                                            <?php echo $registros["url"];?>
+                                            <strong>DISPONIBLES:</strong>
+                                            <?php echo $registros["cantidad"];?>
                                         </li>
                                         <li>
         <strong> Nuestras Redes Sociales:</strong>
